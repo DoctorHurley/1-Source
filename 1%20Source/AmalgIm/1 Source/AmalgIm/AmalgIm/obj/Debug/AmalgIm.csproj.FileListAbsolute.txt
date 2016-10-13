@@ -1,9 +1,0 @@
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\bin\Debug\AmalgIm.exe.config
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\bin\Debug\AmalgIm.exe
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\bin\Debug\AmalgIm.pdb
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.Properties.Resources.resources
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.TestPanel.resources
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.csproj.GenerateResource.Cache
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.exe
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.pdb
-C:\Users\Owner\Desktop\AmalgIm\1 Source\AmalgIm\AmalgIm\obj\Debug\AmalgIm.csprojResolveAssemblyReference.cache
