@@ -40,7 +40,11 @@ namespace AmalgIm
             // DropDown
             // 
             this.DropDown.FormattingEnabled = true;
-            this.DropDown.Items.AddRange(new object[] {});
+            this.DropDown.Items.AddRange(new object[] {
+            "Test 1",
+            "Test 2",
+            "Test 3",
+            "Nutshackk"});
             this.DropDown.Location = new System.Drawing.Point(36, 12);
             this.DropDown.Name = "DropDown";
             this.DropDown.Size = new System.Drawing.Size(193, 24);

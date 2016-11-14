@@ -17,7 +17,7 @@ namespace AmalgIm
         private VScrollBar vScroll;
         private Panel display;
         private List<DirectoryInfo> imageDirs;
-        public DirectoryInfo[] dropdownList;
+        public List<String>[] dropdownList;
 
         public TestPanel()
         {//here is the in-house form constructor; contained is a Microsoft method to instantiate the form
@@ -52,23 +52,13 @@ namespace AmalgIm
 
             //grab files from base directory
             //String path = "./../../../../..";//amalgim base folder
-            String path = "C:\\Users\\Owner\\Desktop";
+            String path = "C:\\Users\\Owner\\Desktop\\Amalgim\\Test Image Root";
 
             DirectoryInfo d = new DirectoryInfo(path);
 
             try
             {
                 ReturnImageDir(d);
-                dropdownList = new DirectoryInfo[imageDirs.Count];
-                int count = 0;
-
-                foreach(var f in imageDirs)
-                {
-                    count++;
-                    dropdownList[count-1] = f;
-                }
-
-
                 this.vScroll.Maximum = this.display.Height;
                 this.Controls.Add(vScroll);
             }
@@ -102,16 +92,11 @@ namespace AmalgIm
 
         private void ReturnImageDir(DirectoryInfo dir)
         {//load image directories into running list
-            int opCount = 0;
+            loadImages();
 
             if (isImageDir(dir))
             {
                 imageDirs.Add(dir);
-                opCount++;
-                if(opCount % 20 == 0)
-                {//sleep every 20 operations
-                    System.Threading.Thread.Sleep(10000);
-                }
             }
             foreach (var d in dir.GetDirectories())
             {//recursive call to iterate through subdirectories
@@ -133,6 +118,26 @@ namespace AmalgIm
             }
 
             return val;
+        }
+
+        private void loadImages()
+        {//load images into 2d array with dropdown list matching indices in format [directory][file no.]
+            dropdownList = new List<String>[imageDirs.Count];
+            int listSize = 0;
+
+            foreach (var f in imageDirs)
+            {//done on a directory basis
+                FileInfo[] temp = f.GetFiles();
+                dropdownList[listSize] = new List<String>();
+                for (int j = 0; j < temp.Length; j++)
+                {//populate image file array for dropdown list
+                    if(isImage(temp[j]))
+                    {
+                        dropdownList[listSize].Add(temp[j].Name);
+                    }
+                }
+                listSize++;
+            }
         }
 
         private void vScroll_ValueChanged(object sender, System.EventArgs e)
@@ -209,34 +214,30 @@ namespace AmalgIm
             this.display.Controls.Clear();
             int imageCount = 0;
 
-            foreach (var x in dropdownList[n].GetFiles())
+            foreach (var x in dropdownList[n])
             {
-                if(isImage(x))
+                Label temp = new Label();
+
+                //this is used when reading files not directories
+                //String[] pathSegments = f.DirectoryName.Split(new char[] { '\\' }[0]);
+                //temp.Text = imageCount + " " + (pathSegments[pathSegments.Length - 1]) + " : " + f.Name;
+
+                //temp.Text = dropdownList[n][i].Name;
+                temp.Text = x;
+                temp.BackColor = Color.Gray;
+                //first label starts at y = 20, adjust successive labels accordingly
+                temp.Location = new System.Drawing.Point(50, (imageCount > 0 ? 20 + (imageCount * 30) : 20) + 30);
+                temp.Size = new System.Drawing.Size(600, 25);
+
+                this.display.Controls.Add(temp);
+                imageCount++;
+
+                if (temp.Location.Y >= 750)
                 {
-                    Label temp = new Label();
-
-                    temp.Text = x.Name;
-                    temp.BackColor = Color.Gray;
-                    //first label starts at y = 20, adjust successive labels accordingly
-                    temp.Location = new System.Drawing.Point(50, (imageCount > 0 ? 20 + (imageCount * 30) : 20) + 30);
-                    temp.Size = new System.Drawing.Size(600, 25);
-
-                    this.display.Controls.Add(temp);
-                    imageCount++;
-
-                    if (temp.Location.Y >= 750)
-                    {
-                        this.display.Height += 30;
-                        this.vScroll.Maximum = this.display.Height;
-                    }
+                    this.display.Height += 30;
+                    this.vScroll.Maximum = this.display.Height;
                 }
             }//end foreach
         }
     }
 }
-
-//this is used when reading files not directories
-//String[] pathSegments = f.DirectoryName.Split(new char[] { '\\' }[0]);
-//temp.Text = imageCount + " " + (pathSegments[pathSegments.Length - 1]) + " : " + f.Name;
-
-//temp.Text = dropdownList[n][i].Name;
